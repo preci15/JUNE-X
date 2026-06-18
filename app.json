@@ -1,6 +1,6 @@
 {
-  "name": "June X Ultra",
-  "description": "June X Ultra - WhatsApp MD Multi-Device Bot powered by Baileys",
+  "name": "JuneX Ultra",
+  "description": "JuneX Ultra - WhatsApp MD Multi-Device Bot powered by Baileys",
   "repository": "https://github.com/Vinpink2/June-Ultra",
   "logo": "",
   "keywords": ["whatsapp", "baileys", "bot", "node", "md", "june-ultra"],
@@ -19,7 +19,7 @@
   "env": {
     "SESSION_ID": {
       "description": "June X Ultra session string. Accepted formats: JUNE-MD:~, Ultra-X:~, June-Ultra:~",
-      "required": true,
+      "required": false,
       "value": ""
     }
   },
