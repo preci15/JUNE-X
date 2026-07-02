@@ -75,9 +75,9 @@
 
 | Platform | Link |
 |----------|------|
-| **WhatsApp Group** | <a href="#"><img src="https://img.shields.io/badge/WhatsApp%20Group-25D366?style=for-the-badge&logo=whatsapp&logoColor=white&logoSize=auto"/></a> |
+| **WhatsApp Group** | <a href="https://whatsapp.com/channel/0029VbBzXBN2kNFoxm7LiG3Q"><img src="https://img.shields.io/badge/WhatsApp%20Group-25D366?style=for-the-badge&logo=whatsapp&logoColor=white&logoSize=auto"/></a> |
 | **YouTube** | <a href="#"><img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white&logoSize=auto"/></a> |
-| **Telegram** | <a href="#"><img src="https://img.shields.io/badge/Telegram-0088cc?style=for-the-badge&logo=telegram&logoColor=white&logoSize=auto"/></a> |
+| **Telegram** | <a href="t.me/supremLord"><img src="https://img.shields.io/badge/Telegram-0088cc?style=for-the-badge&logo=telegram&logoColor=white&logoSize=auto"/></a> |
 
 </div>
 
