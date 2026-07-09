@@ -36,9 +36,10 @@
 
 | Platform | Button |
 |----------|--------|
-| **Heroku** | <a href="https://dashboard.heroku.com/new?template=https://github.com/vinpink2/June-Ultra"><img src="https://img.shields.io/badge/Heroku-6762A6?style=for-the-badge&logo=heroku&logoColor=white&logoSize=auto"/></a> |
+| **Heroku** | <a href="https://dashboard.heroku.com/new?template=https://github.com/vinpink2/June-Ultra"><img src="https://img.shields.io/badge/HerokuHosting-6762A6?style=for-the-badge&logo=heroku&logoColor=white&logoSize=auto"/></a> |
 | **Railway** | <a href="https://railway.app/new"><img src="https://img.shields.io/badge/Railway-000000?style=for-the-badge&logo=railway&logoColor=white&logoSize=auto"/></a> |
 | **Render** | <a href="https://render.com"><img src="https://img.shields.io/badge/Render-0099ff?style=for-the-badge&logo=render&logoColor=white&logoSize=auto"/></a> |
+| **CypherXHost** | <a href="https://platform.cypherx.store/register?ref=REPLI2955E16C9A"><img src="https://img.shields.io/badge/CypherXHosting-007BFF?style=for-the-badge&logo=cypherxhost&logoColor=white&logoSize=auto"/></a> |
 
 </div>
 
@@ -54,17 +55,6 @@
 | **Pair Code 2** | <a href="https://pairjune.xwolf.space/"><img src="https://img.shields.io/badge/Pair%20Code%20%232-FF8C00?style=for-the-badge&logo=whatsapp&logoColor=white&logoSize=auto"/></a> |
 | **QR Code** | <a href="https://pair-junex-code-5b6454f71d47.herokuapp.com/qr"><img src="https://img.shields.io/badge/QR%20Code-007BFF?style=for-the-badge&logo=whatsapp&logoColor=white&logoSize=auto"/></a> |
 
-</div>
-
----
-
-> 📊 Bot Status
-
-<div align="center">
-  <img src="https://img.shields.io/badge/Status-Active-28a745?style=for-the-badge&logoSize=auto" />
-  <img src="https://img.shields.io/badge/Version-2.0.0-0366d6?style=for-the-badge&logoSize=auto" />
-  <img src="https://img.shields.io/badge/Multi--Device-Supported-d15700?style=for-the-badge&logoSize=auto" />
-  <img src="https://img.shields.io/badge/Open%20Source-Yes-1f883d?style=for-the-badge&logoSize=auto" />
 </div>
 
 ---
